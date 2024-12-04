@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/view_models/tracking_screen_view_model.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/chart_container.dart';
+import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/svg_container.dart';
 
 import '../../../core/utils/utils_export.dart';
 import '../view_models/activity_screen_view_model.dart';
@@ -112,7 +113,7 @@ class TrackingScreen extends ConsumerWidget {
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         dense: true,
-                        leading: Icon(Icons.table_chart_outlined),
+                        leading: Icon(Icons.table_chart_outlined,),
                         title: RobotoText(
                           content: selectedDate,
                           fontSize: 18.sp,
@@ -155,14 +156,18 @@ class TrackingScreen extends ConsumerWidget {
                           ),
                     Align(
                       alignment: Alignment.centerRight,
-                      child: SvgPicture.asset(
-                        activity.svgPath,
-                        width: 40.h,
-                        height: 40.h,
-                        colorFilter: ColorFilter.mode(
-                            Color(activity.color), BlendMode.srcIn),
-                      ),
+                      child: SvgContainer(color: activity.color, svgPath: activity.svgPath, containerSize: 65.h, svgSize: 40.h)
                     )
+                    // Align(
+                    //   alignment: Alignment.centerRight,
+                    //   child: SvgPicture.asset(
+                    //     activity.svgPath,
+                    //     width: 40.h,
+                    //     height: 40.h,
+                    //     colorFilter: ColorFilter.mode(
+                    //         Color(activity.color), BlendMode.srcIn),
+                    //   ),
+                    // )
                   ],
                 ),
               ),

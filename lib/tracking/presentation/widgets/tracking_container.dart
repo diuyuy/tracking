@@ -3,13 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/svg_container.dart';
 
 import '../../../core/utils/utils_export.dart';
 import '../view_models/activity_screen_view_model.dart';
 import 'roboto_text.dart';
 
 class TrackingContainer extends ConsumerWidget {
-  const TrackingContainer({super.key, required this.index,required this.selectedDate});
+  const TrackingContainer(
+      {super.key, required this.index, required this.selectedDate});
 
   final int index;
   final String selectedDate;
@@ -39,14 +41,23 @@ class TrackingContainer extends ConsumerWidget {
           ),
           Align(
             alignment: Alignment.centerRight,
-            child: SvgPicture.asset(
-              activity[index].svgPath,
-              width: 30.w,
-              height: 30.w,
-              colorFilter: ColorFilter.mode(
-                  Color(activity[index].color), BlendMode.srcIn),
+            child: SvgContainer(
+              color: activity[index].color,
+              svgPath: activity[index].svgPath,
+              containerSize: 50.w,
+              svgSize: 30.w,
             ),
           ),
+          // Align(
+          //   alignment: Alignment.centerRight,
+          //   child: SvgPicture.asset(
+          //     activity[index].svgPath,
+          //     width: 30.w,
+          //     height: 30.w,
+          //     colorFilter: ColorFilter.mode(
+          //         Color(activity[index].color), BlendMode.srcIn),
+          //   ),
+          // ),
           activity[index].values[selectedDate] != null
               ? Align(
                   alignment: Alignment.bottomLeft,
@@ -73,17 +84,6 @@ class TrackingContainer extends ConsumerWidget {
                   child:
                       RobotoText(content: TrackingScreenData.inputTodayValues),
                 ),
-          // RobotoText(
-          //   content: '${activity[index].maxValue} ',
-          //   fontSize: 16.sp,
-          //   fontWeight: FontWeight.w700,
-          //   color: Color(activity[index].color),
-          // ),
-          // RobotoText(
-          //   content: activity[index].unit,
-          //   fontSize: 16.sp,
-          //   fontWeight: FontWeight.w700,
-          // )
         ],
       ),
     );

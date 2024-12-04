@@ -57,12 +57,16 @@ class CustomLineChart extends ConsumerWidget {
           LineChartBarData(
             preventCurveOverShooting: true,
             color: Color(activity.color),
-            gradient:
-                LinearGradient(colors: AppColors.getGradient(activity.color)),
+            // gradient:
+            //     LinearGradient(colors: AppColors.getGradient(activity.color)),
             isCurved: true,
             barWidth: 3,
             //curveSmoothness: 0.3,
             spots: getFlSpot(valuesList),
+            shadow: Shadow(
+              color: Color(activity.color),
+              blurRadius: 3
+            ),
             dotData: FlDotData(
               show: true,
               getDotPainter: (FlSpot spot, double percent, LineChartBarData bar,
@@ -146,9 +150,9 @@ class CustomLineChart extends ConsumerWidget {
       if (list[i] != null) {
         spotList.add(FlSpot(1.0 + i, list[i]!));
       }
-      // else {
-      //   spotList.add(FlSpot(i + 1, randomDouble().toDouble()));
-      // }
+      else {
+        spotList.add(FlSpot(i + 1, randomDouble().toDouble()));
+      }
     }
     return spotList;
   }
