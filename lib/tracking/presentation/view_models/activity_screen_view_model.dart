@@ -39,13 +39,16 @@ class ActivityScreenViewModel extends _$ActivityScreenViewModel {
   }
 
   void editActivity(int index, String selectedDate) {
+    bool isBefore = DateTime.parse(selectedDate).isBefore(DateTime.parse(today));
     final newActivity = ref.read(
         editActivityViewModelProvider(index, selectedDate));
     final updatedValues = {...state[index].values};
     updatedValues[selectedDate] = newActivity[1];
     final updatedActivity = Activity(title: newActivity[0],
-        startDate: state[index].startDate,
+        startDate: isBefore?selectedDate:state[index].startDate,
         values: updatedValues,
+        min:(double.parse(newActivity[1])<double.parse(state[index].min))?newActivity[1]:state[index].min,
+        max:(double.parse(newActivity[1])>double.parse(state[index].max))?newActivity[1]:state[index].max,
         maxValue: newActivity[2],
         unit: newActivity[3],
         svgPath: newActivity[4],
@@ -114,6 +117,29 @@ class ActivityScreenViewModel extends _$ActivityScreenViewModel {
     if(yValue%1!=0) return yValue.toStringAsFixed(1);
     return yValue.toStringAsFixed(0);
   }
+
+  String formatDouble(double value) {
+    return value.toStringAsFixed(10).replaceAll(RegExp(r'0*$'), '').replaceAll(RegExp(r'\.$'), '');
+  }
+
+  String toolTipValue(double value, String maxValue) {
+    double yValue = getYValue(value, maxValue);
+    // final maxVal = double.parse(maxValue);
+
+    String formatDouble(double value) {
+      return value.toStringAsFixed(10)
+          .replaceAll(RegExp(r'0*$'), '')
+          .replaceAll(RegExp(r'\.$'), '');
+    }
+
+    // if (maxVal >= 10000.0) {
+    //   if (yValue == 0) return '0'; // 값이 0인 경우
+    //   return '${formatDouble(yValue / 1000)}k'; // 1000으로 나눈 값에 'k' 추가
+    // }
+
+    return formatDouble(yValue); // 일반 값 포맷
+  }
+
 
   double getYValue(double value,String maxValue){
     final ratio = Decimal.parse(value.toString()) / Decimal.parse('24.0');

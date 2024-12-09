@@ -28,7 +28,7 @@ class CustomBarChart extends ConsumerWidget {
               return AppColors.TOOL_TIP_COLOR;
             },
             getTooltipItem: (group,groupIndex,rod,rodIndex){
-              return BarTooltipItem(notifier.convertYValue(rod.toY, activity.maxValue), TextStyle(color: Color(activity.color)));
+              return BarTooltipItem(notifier.toolTipValue(rod.toY, activity.maxValue), TextStyle(color: Color(activity.color)));
             }
           )
         ),
@@ -59,7 +59,7 @@ class CustomBarChart extends ConsumerWidget {
                           notifier
                               .convertYValue(value, activity.maxValue)
                               .padLeft(3, '  '),
-                          style: TextStyle(fontSize: 12.sp),
+                          style: TextStyle(fontSize: 13.sp),
                         )
                       : Text('');
                 }),
@@ -68,7 +68,7 @@ class CustomBarChart extends ConsumerWidget {
             sideTitles: SideTitles(
                 showTitles: true,
                 getTitlesWidget: (value, meta) {
-                  return Text(TrackingScreenData.weeks[value.toInt()]);
+                  return Text(TrackingScreenData.weeks[value.toInt()],style: TextStyle(fontSize: 16.sp,),);
                 }),
           ),
           topTitles: const AxisTitles(

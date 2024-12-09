@@ -7,7 +7,7 @@ part of 'add_activity_view_model.dart';
 // **************************************************************************
 
 String _$addActivityViewModelHash() =>
-    r'7b2ee90d9b7ca2967cf5b0f4b8968912b53e79a0';
+    r'bd7d5e330b75fe42a369409ca576daffbce65df7';
 
 /// See also [AddActivityViewModel].
 @ProviderFor(AddActivityViewModel)

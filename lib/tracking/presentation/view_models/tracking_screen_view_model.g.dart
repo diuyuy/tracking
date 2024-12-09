@@ -7,7 +7,7 @@ part of 'tracking_screen_view_model.dart';
 // **************************************************************************
 
 String _$trackingScreenViewModelHash() =>
-    r'16f7debe527314432ccbc6562dc825275c99bb93';
+    r'017682b06a9736fb4b8ea9129e209273e5c0a5b7';
 
 /// Copied from Dart SDK
 class _SystemHash {

@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Activity {
   String get title => throw _privateConstructorUsedError;
   String get maxValue => throw _privateConstructorUsedError;
+  String get min => throw _privateConstructorUsedError;
+  String get max => throw _privateConstructorUsedError;
   String get unit => throw _privateConstructorUsedError;
   String get svgPath => throw _privateConstructorUsedError;
   int get color =>
@@ -40,6 +42,8 @@ abstract class $ActivityCopyWith<$Res> {
   $Res call(
       {String title,
       String maxValue,
+      String min,
+      String max,
       String unit,
       String svgPath,
       int color,
@@ -64,6 +68,8 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
   $Res call({
     Object? title = null,
     Object? maxValue = null,
+    Object? min = null,
+    Object? max = null,
     Object? unit = null,
     Object? svgPath = null,
     Object? color = null,
@@ -78,6 +84,14 @@ class _$ActivityCopyWithImpl<$Res, $Val extends Activity>
       maxValue: null == maxValue
           ? _value.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      min: null == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as String,
+      max: null == max
+          ? _value.max
+          : max // ignore: cast_nullable_to_non_nullable
               as String,
       unit: null == unit
           ? _value.unit
@@ -114,6 +128,8 @@ abstract class _$$ActivityImplCopyWith<$Res>
   $Res call(
       {String title,
       String maxValue,
+      String min,
+      String max,
       String unit,
       String svgPath,
       int color,
@@ -136,6 +152,8 @@ class __$$ActivityImplCopyWithImpl<$Res>
   $Res call({
     Object? title = null,
     Object? maxValue = null,
+    Object? min = null,
+    Object? max = null,
     Object? unit = null,
     Object? svgPath = null,
     Object? color = null,
@@ -150,6 +168,14 @@ class __$$ActivityImplCopyWithImpl<$Res>
       maxValue: null == maxValue
           ? _value.maxValue
           : maxValue // ignore: cast_nullable_to_non_nullable
+              as String,
+      min: null == min
+          ? _value.min
+          : min // ignore: cast_nullable_to_non_nullable
+              as String,
+      max: null == max
+          ? _value.max
+          : max // ignore: cast_nullable_to_non_nullable
               as String,
       unit: null == unit
           ? _value.unit
@@ -181,6 +207,8 @@ class _$ActivityImpl implements _Activity {
   const _$ActivityImpl(
       {this.title = 'No Info',
       this.maxValue = 'No Info',
+      this.min = '999999999',
+      this.max = '0',
       this.unit = 'No Info',
       this.svgPath = 'No Info',
       this.color = 0,
@@ -194,6 +222,12 @@ class _$ActivityImpl implements _Activity {
   @override
   @JsonKey()
   final String maxValue;
+  @override
+  @JsonKey()
+  final String min;
+  @override
+  @JsonKey()
+  final String max;
   @override
   @JsonKey()
   final String unit;
@@ -217,7 +251,7 @@ class _$ActivityImpl implements _Activity {
 
   @override
   String toString() {
-    return 'Activity(title: $title, maxValue: $maxValue, unit: $unit, svgPath: $svgPath, color: $color, startDate: $startDate, values: $values)';
+    return 'Activity(title: $title, maxValue: $maxValue, min: $min, max: $max, unit: $unit, svgPath: $svgPath, color: $color, startDate: $startDate, values: $values)';
   }
 
   @override
@@ -228,6 +262,8 @@ class _$ActivityImpl implements _Activity {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.maxValue, maxValue) ||
                 other.maxValue == maxValue) &&
+            (identical(other.min, min) || other.min == min) &&
+            (identical(other.max, max) || other.max == max) &&
             (identical(other.unit, unit) || other.unit == unit) &&
             (identical(other.svgPath, svgPath) || other.svgPath == svgPath) &&
             (identical(other.color, color) || other.color == color) &&
@@ -237,8 +273,8 @@ class _$ActivityImpl implements _Activity {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, title, maxValue, unit, svgPath,
-      color, startDate, const DeepCollectionEquality().hash(_values));
+  int get hashCode => Object.hash(runtimeType, title, maxValue, min, max, unit,
+      svgPath, color, startDate, const DeepCollectionEquality().hash(_values));
 
   /// Create a copy of Activity
   /// with the given fields replaced by the non-null parameter values.
@@ -253,6 +289,8 @@ abstract class _Activity implements Activity {
   const factory _Activity(
       {final String title,
       final String maxValue,
+      final String min,
+      final String max,
       final String unit,
       final String svgPath,
       final int color,
@@ -263,6 +301,10 @@ abstract class _Activity implements Activity {
   String get title;
   @override
   String get maxValue;
+  @override
+  String get min;
+  @override
+  String get max;
   @override
   String get unit;
   @override

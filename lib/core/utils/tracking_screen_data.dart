@@ -31,5 +31,9 @@ class TrackingScreenData {
 
   static const String alertTitle = "Are you sure you want to delete this activity?";
   static const String alertContent = "This action will permanently delete your data.";
+  static const String startDate = "Start date";
+  static const String latestDate = "Latest date";
+  static const String minValue = "Min value";
+  static const String maxValue = "Max value";
 
 }

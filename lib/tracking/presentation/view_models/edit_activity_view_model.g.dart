@@ -7,7 +7,7 @@ part of 'edit_activity_view_model.dart';
 // **************************************************************************
 
 String _$editActivityViewModelHash() =>
-    r'a9c7848aa6f295857ecaada6f6287cf789d74822';
+    r'b59c3b9f5ae6ad7135982d1f6f9be54bc0320bd5';
 
 /// Copied from Dart SDK
 class _SystemHash {

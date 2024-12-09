@@ -25,6 +25,12 @@ class HiveActivity {
   @HiveField(6)
   final Map<String, String> values;
 
+  @HiveField(7)
+  final String min;
+
+  @HiveField(8)
+  final String max;
+
   HiveActivity({
     this.title = 'No Info',
     this.maxValue = 'No Info',
@@ -32,6 +38,8 @@ class HiveActivity {
     this.svgPath = 'No Info',
     this.color = 0,
     required this.startDate,
-    this.values = const {}, // 초기값 설정
+    this.values = const {},
+    required this.min,
+    required this.max// 초기값 설정
   });
 }

@@ -71,6 +71,9 @@ flutter:
   assets:
     - assets/svg/final_svg/
     - assets/svg/leaves/
+    - assets/svg/sports/
+    - assets/svg/foods/
+    - assets/svg/others/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

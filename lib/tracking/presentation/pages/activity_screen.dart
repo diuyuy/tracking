@@ -43,7 +43,7 @@ class ActivityScreen extends ConsumerWidget {
                     context: context,
                     initialDate: DateTime.parse(selectedDate),
                     firstDate: DateTime(2010),
-                    lastDate: DateTime(2100),
+                    lastDate: DateTime.parse(notifier.today),//DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.calendar,
                     currentDate: DateTime.now(),
                     //DateTime.parse(selectedDate),
@@ -53,7 +53,7 @@ class ActivityScreen extends ConsumerWidget {
                   if (sDate != null) {
                     String date = DateFormat('yyyy-MM-dd').format(sDate);
                     if (context.mounted) {
-                      context.pop();
+                      //context.pop();
                       context.pushNamed(ConstRouterName.ACTIVITY_SCREEN,
                           extra: date);
                     }
@@ -87,7 +87,7 @@ class ActivityScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      subtitle: RobotoText(content: '($selectedDate)'),
+                      subtitle: RobotoText(content: '($selectedDate)',fontSize: 13.sp,),
                     ),
                     Text(
                       ConstActivityScreenData.bodySubTitle,
@@ -98,22 +98,6 @@ class ActivityScreen extends ConsumerWidget {
                       ),
                     ),
                     Gap(20.h),
-                    // ...[
-                    //   for (int i = 0; i < activityList.length; i++)
-                    //     Padding(
-                    //       padding: EdgeInsets.symmetric(vertical: 5.0.h),
-                    //       child: GestureDetector(
-                    //         onTap: () => context.pushNamed(
-                    //             ConstRouterName.TRACKING_SCREEN,
-                    //             extra: RouterArgument(
-                    //                 index: i, selectedDate: selectedDate)),
-                    //         child: TrackingContainer(
-                    //           index: i,
-                    //           selectedDate: selectedDate,
-                    //         ),
-                    //       ),
-                    //     )
-                    // ]
                   ],
                 ),
               ),
@@ -145,11 +129,11 @@ class ActivityScreen extends ConsumerWidget {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: notifier.today==selectedDate?FloatingActionButton(
         onPressed: () => context.pushNamed(ConstRouterName.ADD_ACTIVITY_SCREEN),
         backgroundColor: AppColors.WHITE,
         child: const Icon(Icons.add),
-      ),
+      ):null,
     );
   }
 }

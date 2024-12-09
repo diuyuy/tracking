@@ -7,7 +7,7 @@ part of 'activity_screen_view_model.dart';
 // **************************************************************************
 
 String _$activityScreenViewModelHash() =>
-    r'c0fd9cc596e315c0ce3acb4a2f4d02aca68f784f';
+    r'ac92dd3aae0b2215884de601e930143711aa8dde';
 
 /// See also [ActivityScreenViewModel].
 @ProviderFor(ActivityScreenViewModel)

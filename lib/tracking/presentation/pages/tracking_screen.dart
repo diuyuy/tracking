@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +9,9 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/view_models/tracking_screen_view_model.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/chart_container.dart';
+import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/statistics_container.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/svg_container.dart';
+import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/value_container.dart';
 
 import '../../../core/utils/utils_export.dart';
 import '../view_models/activity_screen_view_model.dart';
@@ -26,6 +30,7 @@ class TrackingScreen extends ConsumerWidget {
     final notifier = ref.read(activityScreenViewModelProvider.notifier);
     return Scaffold(
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         leading: IconButton(
             onPressed: () => context.pop(), icon: const Icon(Icons.arrow_back)),
         title: RobotoText(
@@ -113,7 +118,9 @@ class TrackingScreen extends ConsumerWidget {
                       child: ListTile(
                         contentPadding: EdgeInsets.zero,
                         dense: true,
-                        leading: Icon(Icons.table_chart_outlined,),
+                        leading: Icon(
+                          Icons.table_chart_outlined,
+                        ),
                         title: RobotoText(
                           content: selectedDate,
                           fontSize: 18.sp,
@@ -155,9 +162,12 @@ class TrackingScreen extends ConsumerWidget {
                             ),
                           ),
                     Align(
-                      alignment: Alignment.centerRight,
-                      child: SvgContainer(color: activity.color, svgPath: activity.svgPath, containerSize: 65.h, svgSize: 40.h)
-                    )
+                        alignment: Alignment.centerRight,
+                        child: SvgContainer(
+                            color: activity.color,
+                            svgPath: activity.svgPath,
+                            containerSize: 65.h,
+                            svgSize: 40.h))
                     // Align(
                     //   alignment: Alignment.centerRight,
                     //   child: SvgPicture.asset(
@@ -176,6 +186,46 @@ class TrackingScreen extends ConsumerWidget {
                 index: index,
                 selectedDate: selectedDate,
               ),
+              Gap(20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  StatisticsContainer(
+                      color: AppColors.PURPLE.value,
+                      svgPath: SvgPathData.start,
+                      content: activity.startDate,
+                    subContent: TrackingScreenData.startDate,
+
+                  ),
+                  StatisticsContainer(
+                      color: AppColors.RED.value,
+                      svgPath: SvgPathData.flag,
+                      content: notifier.today,
+                      subContent: TrackingScreenData.latestDate,
+                  )
+                ],
+              ),
+              Gap(20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ValueContainer(
+                      color: AppColors.BLUE.value,
+                      svgPath: SvgPathData.down,
+                      value: activity.min,
+                      unit: activity.unit,
+                      subContent: TrackingScreenData.minValue,
+                  ),
+                  ValueContainer(
+                      color: AppColors.GREEN.value,
+                      svgPath: SvgPathData.up,
+                      value: activity.max,
+                      unit: activity.unit,
+                      subContent: TrackingScreenData.maxValue,
+                  )
+                ],
+              ),
+              Gap(30.h),
             ],
           ),
         ),

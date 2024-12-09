@@ -27,7 +27,10 @@ class LocalDataSource {
         svgPath: hiveActivity.svgPath,
         unit: hiveActivity.unit,
         maxValue: hiveActivity.maxValue,
-        values: hiveActivity.values);
+        values: hiveActivity.values,
+        min: hiveActivity.min,
+        max: hiveActivity.max
+    );
   }
 
   HiveActivity entityToHive(Activity activity) {
@@ -38,7 +41,10 @@ class LocalDataSource {
         maxValue: activity.maxValue,
         unit: activity.unit,
         svgPath: activity.svgPath,
-        color: activity.color);
+        color: activity.color,
+        min: activity.min,
+        max: activity.max
+    );
   }
 
   List<Activity> getActivityList(){

@@ -102,7 +102,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     state = newState;
   }
 
-  void editActivity(int index,String selectedDate){
+  void editActivity(int index,String selectedDate) {
     ref.read(activityScreenViewModelProvider.notifier).editActivity(index, selectedDate);
     ref.read(trackingScreenViewModelProvider(index).notifier).editActivity(selectedDate);
   }
@@ -116,7 +116,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     );
   }
 
-  void showIconModalBottomSheet(BuildContext context) {
+  void showIconModalBottomSheet(BuildContext context,List<String> svgPathList) {
     showModalBottomSheet(
       context: context,
       backgroundColor: AppColors.WHITE,
@@ -125,16 +125,16 @@ class EditActivityViewModel extends _$EditActivityViewModel {
         child: ListView(children: [
           Gap(20),
           ...[
-            for (int i = 0; i < SvgPathData.activitySvgList.length * 2; i++)
+            for (int i = 0; i < svgPathList.length * 2; i++)
               i % 2 == 0
                   ? ListTile(
                 title: SvgPicture.asset(
-                  SvgPathData.activitySvgList[i ~/ 2],
+                  svgPathList[i ~/ 2],
                   width: 30.w,
                   height: 30.w,
                 ),
                 onTap: () {
-                  addIcon(SvgPathData.activitySvgList[i ~/ 2]);
+                  addIcon(svgPathList[i ~/ 2]);
                   Navigator.pop(context);
                 },
               )

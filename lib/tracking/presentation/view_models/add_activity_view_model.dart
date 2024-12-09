@@ -114,7 +114,39 @@ class AddActivityViewModel extends _$AddActivityViewModel {
     );
   }
 
-  void showIconModalBottomSheet(BuildContext context) {
+  // void showIconModalBottomSheet(BuildContext context) {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     backgroundColor: AppColors.WHITE,
+  //     builder: (context) => SizedBox(
+  //       height: 350.h,
+  //       child: ListView(children: [
+  //         Gap(20),
+  //         ...[
+  //           for (int i = 0; i < SvgPathData.activitySvgList.length * 2; i++)
+  //             i % 2 == 0
+  //                 ? ListTile(
+  //                     title: SvgPicture.asset(
+  //                       SvgPathData.activitySvgList[i ~/ 2],
+  //                       width: 30.w,
+  //                       height: 30.w,
+  //                     ),
+  //                     onTap: () {
+  //                       addIcon(SvgPathData.activitySvgList[i ~/ 2]);
+  //                       Navigator.pop(context);
+  //                     },
+  //                   )
+  //                 : Padding(
+  //                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+  //                     child: const MyDivider(),
+  //                   ),
+  //         ],
+  //       ]),
+  //     ),
+  //   );
+  // }
+
+  void showIconModalBottomSheet(BuildContext context,List<String> svgPathList) {
     showModalBottomSheet(
       context: context,
       backgroundColor: AppColors.WHITE,
@@ -123,23 +155,23 @@ class AddActivityViewModel extends _$AddActivityViewModel {
         child: ListView(children: [
           Gap(20),
           ...[
-            for (int i = 0; i < SvgPathData.activitySvgList.length * 2; i++)
+            for (int i = 0; i < svgPathList.length * 2; i++)
               i % 2 == 0
                   ? ListTile(
-                      title: SvgPicture.asset(
-                        SvgPathData.activitySvgList[i ~/ 2],
-                        width: 30.w,
-                        height: 30.w,
-                      ),
-                      onTap: () {
-                        addIcon(SvgPathData.activitySvgList[i ~/ 2]);
-                        Navigator.pop(context);
-                      },
-                    )
+                title: SvgPicture.asset(
+                  svgPathList[i ~/ 2],
+                  width: 30.w,
+                  height: 30.w,
+                ),
+                onTap: () {
+                  addIcon(svgPathList[i ~/ 2]);
+                  Navigator.pop(context);
+                },
+              )
                   : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: const MyDivider(),
-                    ),
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: const MyDivider(),
+              ),
           ],
         ]),
       ),

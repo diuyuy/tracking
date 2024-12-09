@@ -30,7 +30,7 @@ class CustomLineChart extends ConsumerWidget {
           }, getTooltipItems: (touchedSpots) {
             return touchedSpots.map((touchedSpot) {
               return LineTooltipItem(
-                  notifier.convertYValue(touchedSpot.y, activity.maxValue),
+                  notifier.toolTipValue(touchedSpot.y, activity.maxValue),
                   TextStyle(color: Color(activity.color)));
             }).toList();
           }),
@@ -112,7 +112,7 @@ class CustomLineChart extends ConsumerWidget {
                   if ((day % 5 == 0 && day != 0) || day == 1) {
                     return Text(
                       '$day',
-                      style: TextStyle(fontSize: 12.sp),
+                      style: TextStyle(fontSize: 13.sp),
                     );
                   }
                   return Text(' ');
@@ -130,7 +130,7 @@ class CustomLineChart extends ConsumerWidget {
                           notifier
                               .convertYValue(value, activity.maxValue)
                               .padLeft(3, '  '),
-                          style: TextStyle(fontSize: 12.sp),
+                          style: TextStyle(fontSize: 13.sp),
                         )
                       : Text('');
                 }),
@@ -150,9 +150,9 @@ class CustomLineChart extends ConsumerWidget {
       if (list[i] != null) {
         spotList.add(FlSpot(1.0 + i, list[i]!));
       }
-      else {
-        spotList.add(FlSpot(i + 1, randomDouble().toDouble()));
-      }
+      // else {
+      //   spotList.add(FlSpot(i + 1, randomDouble().toDouble()));
+      // }
     }
     return spotList;
   }

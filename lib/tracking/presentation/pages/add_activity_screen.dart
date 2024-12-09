@@ -27,9 +27,11 @@ class _AddActivityScreenState extends ConsumerState<AddActivityScreen> {
     TextEditingController(),
     TextEditingController(),
   ];
+
   // final MenuController _menuController = MenuController();
   bool checkValid = true;
   bool checkValueValid = true;
+
   // bool checkNotExistTitle =true;
 
   @override
@@ -43,6 +45,7 @@ class _AddActivityScreenState extends ConsumerState<AddActivityScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(addActivityViewModelProvider);
+    final notifier = ref.read(addActivityViewModelProvider.notifier);
     return Scaffold(
       appBar: AppBar(
         //backgroundColor: Colors.grey,
@@ -96,37 +99,101 @@ class _AddActivityScreenState extends ConsumerState<AddActivityScreen> {
               const MyDivider(),
               buildCustomRow(3, 10),
               const MyDivider(),
-              ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                dense: true,
-                leading: MyText(content: AddActivityScreenData.property[4]),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    viewModel[4] == Input.none
-                        ? MyText(content: 'Select')
-                        : SvgPicture.asset(
-                            viewModel[4] as String,
-                            width: 20.w,
-                            height: 20.w,
-                            colorFilter: ColorFilter.mode(
-                                viewModel[5] == Input.none
-                                    ? AppColors.BLACK
-                                    : Color(viewModel[5]),
-                                BlendMode.srcIn),
-                          ),
-                    Gap(5.w),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: AppColors.DIVIDER_COLOR,
-                      size: 16.w,
-                    )
-                  ],
+              MenuAnchor(
+                style: MenuStyle(
+                  backgroundColor: WidgetStatePropertyAll(AppColors.SCAFFOLD_BACKGROUND_GREY),
+                  //fixedSize: WidgetStatePropertyAll(Size(100.w,140.w)),
                 ),
-                onTap: () => ref
-                    .read(addActivityViewModelProvider.notifier)
-                    .showIconModalBottomSheet(context),
+                alignmentOffset: Offset(1.sw, 0),
+                menuChildren: [
+                  MenuItemButton(
+                    // style: MenuItemButton.styleFrom(
+                    //   fixedSize: Size(60.w,40.w),
+                    // ),
+                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.sportsSvgList),
+                    child: RobotoText(content: 'Sports'),
+                  ),
+                  MenuItemButton(
+                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.foodsSvgList),
+                    child: RobotoText(content: 'Foods'),
+                  ),
+                  MenuItemButton(
+                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.othersSvgList),
+                    child: RobotoText(content: 'Others'),
+                  ),
+                ],
+                builder: (BuildContext context,MenuController controller,Widget? child){
+                  return ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                    dense: true,
+                    leading: MyText(content: AddActivityScreenData.property[4]),
+                    trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      viewModel[4] == Input.none
+                          ? MyText(content: 'Select')
+                          : SvgPicture.asset(
+                        viewModel[4] as String,
+                        width: 20.w,
+                        height: 20.w,
+                        colorFilter: ColorFilter.mode(
+                            viewModel[5] == Input.none
+                                ? AppColors.BLACK
+                                : Color(viewModel[5]),
+                            BlendMode.srcIn),
+                      ),
+                      Gap(5.w),
+                      Icon(
+                        Icons.keyboard_arrow_down,
+                        color: AppColors.DIVIDER_COLOR,
+                        size: 16.w,
+                      )
+                    ],
+                  ),
+                    onTap: (){
+                      if(controller.isOpen){
+                        controller.close();
+                      }
+                      else{
+                        controller.open();
+                      }
+                    },
+                  );
+                },
               ),
+              // ListTile(
+              //   contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+              //   dense: true,
+              //   leading: MyText(content: AddActivityScreenData.property[4]),
+              //   trailing: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       viewModel[4] == Input.none
+              //           ? MyText(content: 'Select')
+              //           : SvgPicture.asset(
+              //         viewModel[4] as String,
+              //         width: 20.w,
+              //         height: 20.w,
+              //         colorFilter: ColorFilter.mode(
+              //             viewModel[5] == Input.none
+              //                 ? AppColors.BLACK
+              //                 : Color(viewModel[5]),
+              //             BlendMode.srcIn),
+              //       ),
+              //       Gap(5.w),
+              //       Icon(
+              //         Icons.keyboard_arrow_down,
+              //         color: AppColors.DIVIDER_COLOR,
+              //         size: 16.w,
+              //       )
+              //     ],
+              //   ),
+              //   onTap: () =>
+              //       ref
+              //           .read(addActivityViewModelProvider.notifier)
+              //           .showIconModalBottomSheet(
+              //           context, SvgPathData.sportsSvgList),
+              // ),
               const MyDivider(),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -146,11 +213,12 @@ class _AddActivityScreenState extends ConsumerState<AddActivityScreen> {
                     )
                   ],
                 ),
-                onTap: () => ref
-                    .read(addActivityViewModelProvider.notifier)
-                    .showIconColorModalBottomSheet(context),
+                onTap: () =>
+                    ref
+                        .read(addActivityViewModelProvider.notifier)
+                        .showIconColorModalBottomSheet(context),
               ),
-              const MyDivider(),
+              //const MyDivider(),
               // MenuAnchor(
               //     controller: _menuController,
               //     alignmentOffset: Offset(1.sw, 0),
@@ -214,17 +282,18 @@ class _AddActivityScreenState extends ConsumerState<AddActivityScreen> {
               //     }),
               const MyDivider(),
               Gap(140.h),
-              !checkValueValid && _textController[1].text.isNotEmpty&&_textController[2].text.isNotEmpty
+              !checkValueValid && _textController[1].text.isNotEmpty &&
+                  _textController[2].text.isNotEmpty
                   ? RobotoText(
-                      content: 'Please input valid value',
-                      color: Colors.red,
-                    )
+                content: 'Please input valid value',
+                color: Colors.red,
+              )
                   : SizedBox(width: 10),
               !checkValid
                   ? ref.read(addActivityViewModelProvider.notifier).errorPrint()
                   : SizedBox(width: 10),
               Gap(30.h),
-              ],
+            ],
           ),
         ),
       ),
@@ -258,7 +327,7 @@ class _AddActivityScreenState extends ConsumerState<AddActivityScreen> {
               textAlign: TextAlign.right,
               decoration: InputDecoration(
                 hintText:
-                    'Input the ${AddActivityScreenData.input[i].toLowerCase()}',
+                'Input the ${AddActivityScreenData.input[i].toLowerCase()}',
                 hintStyle: GoogleFonts.roboto(
                   color: Colors.grey,
                   fontSize: AddActivityScreenData.fontSize,

@@ -45,6 +45,7 @@ class _EditScreenState extends ConsumerState<EditScreen> {
   @override
   Widget build(BuildContext context) {
     final viewModel = ref.watch(editActivityViewModelProvider(widget.index,widget.selectedDate));
+    final notifier = ref.read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier);
     for(int i=0;i<_textController.length;i++){
       _textController[i].text = viewModel[i] as String;
     }
@@ -62,7 +63,7 @@ class _EditScreenState extends ConsumerState<EditScreen> {
         ),
         actions: [
           TextButton(
-              onPressed: () {
+              onPressed: () async {
                 final notifier =
                 ref.read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier);
                 for (int i = 0; i < _textController.length; i++) {
@@ -70,10 +71,11 @@ class _EditScreenState extends ConsumerState<EditScreen> {
                 }
                 if (inputComplete() &&
                     notifier.valueValid) {
-                  ref
+                    ref
                       .read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier)
                       .editActivity(widget.index,widget.selectedDate);
-                  context.pop();
+
+                    context.pop();
                 } else {
                   setState(() {
                     checkValid = inputComplete();
@@ -101,33 +103,89 @@ class _EditScreenState extends ConsumerState<EditScreen> {
               const MyDivider(),
               buildCustomRow(3, 10),
               const MyDivider(),
-              ListTile(
-                contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                dense: true,
-                leading: MyText(content: AddActivityScreenData.property[4]),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SvgPicture.asset(
-                      viewModel[4] as String,
-                      width: 20.w,
-                      height: 20.w,
-                      colorFilter: ColorFilter.mode(
-                           Color(viewModel[5]),
-                          BlendMode.srcIn),
-                    ),
-                    Gap(5.w),
-                    Icon(
-                      Icons.keyboard_arrow_down,
-                      color: AppColors.DIVIDER_COLOR,
-                      size: 16.w,
-                    )
-                  ],
+              MenuAnchor(
+                style: MenuStyle(
+                  backgroundColor: WidgetStatePropertyAll(AppColors.SCAFFOLD_BACKGROUND_GREY)
                 ),
-                onTap: () => ref
-                    .read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier)
-                    .showIconModalBottomSheet(context),
+                alignmentOffset: Offset(1.sw, 0),
+                menuChildren: [
+                  MenuItemButton(
+                    style: MenuItemButton.styleFrom(
+                      fixedSize: Size(60.w,40.w),
+                    ),
+                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.sportsSvgList),
+                    child: RobotoText(content: 'Sports'),
+                  ),
+                  MenuItemButton(
+                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.foodsSvgList),
+                    child: RobotoText(content: 'Foods'),
+                  ),
+                  MenuItemButton(
+                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.othersSvgList),
+                    child: RobotoText(content: 'Others'),
+                  ),
+                ],
+                builder: (BuildContext context,MenuController controller,Widget? child){
+                  return ListTile(
+                    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                    dense: true,
+                    leading: MyText(content: AddActivityScreenData.property[4]),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          viewModel[4] as String,
+                          width: 20.w,
+                          height: 20.w,
+                          colorFilter: ColorFilter.mode(
+                              Color(viewModel[5]),
+                              BlendMode.srcIn),
+                        ),
+                        Gap(5.w),
+                        Icon(
+                          Icons.keyboard_arrow_down,
+                          color: AppColors.DIVIDER_COLOR,
+                          size: 16.w,
+                        )
+                      ],
+                    ),
+                    onTap: () {
+                      if(controller.isOpen){
+                        controller.close();
+                      }else{
+                        controller.open();
+                      }
+                    }
+                  );
+                },
               ),
+              // ListTile(
+              //   contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+              //   dense: true,
+              //   leading: MyText(content: AddActivityScreenData.property[4]),
+              //   trailing: Row(
+              //     mainAxisSize: MainAxisSize.min,
+              //     children: [
+              //       SvgPicture.asset(
+              //         viewModel[4] as String,
+              //         width: 20.w,
+              //         height: 20.w,
+              //         colorFilter: ColorFilter.mode(
+              //              Color(viewModel[5]),
+              //             BlendMode.srcIn),
+              //       ),
+              //       Gap(5.w),
+              //       Icon(
+              //         Icons.keyboard_arrow_down,
+              //         color: AppColors.DIVIDER_COLOR,
+              //         size: 16.w,
+              //       )
+              //     ],
+              //   ),
+              //   onTap: () => ref
+              //       .read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier)
+              //       .showIconModalBottomSheet(context),
+              // ),
               const MyDivider(),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
