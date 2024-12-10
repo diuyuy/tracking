@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:mini_project_2_with_android_studio/tracking/data/data_sources/local_data_source/hive_activity.dart';
 
 import 'core/utils/utils_export.dart';
+import 'tracking/data/data_sources/local_data_source/hive_activity.dart';
 
 void main() async{
   await Hive.initFlutter();
@@ -16,7 +16,6 @@ void main() async{
     ),
   );
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

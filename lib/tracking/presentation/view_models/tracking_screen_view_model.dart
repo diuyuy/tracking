@@ -1,4 +1,3 @@
-import 'package:decimal/decimal.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/view_models/activity_screen_view_model.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -44,4 +43,11 @@ class TrackingScreenViewModel extends _$TrackingScreenViewModel {
         svgPath: newActivity[4],
         color: newActivity[5]);
   }
+
+  String get max => state.values.values.reduce((current, next) =>
+        double.parse(current) > double.parse(next) ? current : next);
+
+  String get min => state.values.values.reduce((current, next) =>
+  double.parse(current) < double.parse(next) ? current : next);
+
 }

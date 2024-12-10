@@ -9,7 +9,7 @@ class Activity with _$Activity {
   const factory Activity({
     @Default('No Info') String title,
     @Default('No Info') String maxValue,
-    @Default('999999999') String min,
+    @Default('9999999999') String min,
     @Default('0') String max,
     @Default('No Info') String unit,
     @Default('No Info') String svgPath,

@@ -29,20 +29,20 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     ];
   }
 
-  void addTextFieldInput(int index, String element) {
+  void editTextFieldInput(int index, String element) {
     switch (index) {
       case 0:
-        addTitle(element);
+        editTitle(element);
       case 1:
-        addValue(element);
+        editValue(element);
       case 2:
-        addMaxValue(element);
+        editMaxValue(element);
       case 3:
-        addUnit(element);
+        editUnit(element);
     }
   }
 
-  void addTitle(String element) {
+  void editTitle(String element) {
     if (element.isNotEmpty) {
       final newState = [...state];
       newState[0] = element;
@@ -54,7 +54,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     }
   }
 
-  void addValue(String element) {
+  void editValue(String element) {
     if (element.isNotEmpty) {
       final newState = [...state];
       newState[1] = element;
@@ -66,7 +66,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     }
   }
 
-  void addMaxValue(String element) {
+  void editMaxValue(String element) {
     if (element.isNotEmpty) {
       final newState = [...state];
       newState[2] = element;
@@ -78,7 +78,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     }
   }
 
-  void addUnit(String element) {
+  void editUnit(String element) {
     if (element.isNotEmpty) {
       final newState = [...state];
       newState[3] = element;
@@ -90,13 +90,13 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     }
   }
 
-  void addIcon(String element) {
+  void editIcon(String element) {
     final newState = [...state];
     newState[4] = element;
     state = newState;
   }
 
-  void addIconColor(int element) {
+  void editIconColor(int element) {
     final newState = [...state];
     newState[5] = element;
     state = newState;
@@ -134,7 +134,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
                   height: 30.w,
                 ),
                 onTap: () {
-                  addIcon(svgPathList[i ~/ 2]);
+                  editIcon(svgPathList[i ~/ 2]);
                   Navigator.pop(context);
                 },
               )
@@ -166,7 +166,7 @@ class EditActivityViewModel extends _$EditActivityViewModel {
                     trailing:
                     ColorContainer(color: AppColors.colorList[i ~/ 2]),
                     onTap: () {
-                      addIconColor(AppColors.colorList[i ~/ 2].value);
+                      editIconColor(AppColors.colorList[i ~/ 2].value);
                       Navigator.pop(context);
                     })
                     : const MyDivider(),
@@ -191,5 +191,9 @@ class EditActivityViewModel extends _$EditActivityViewModel {
       checkValid = false;
     }
     return checkValid;
+  }
+  bool validateTitle(String title,int index){
+    if(title == ref.read(trackingScreenViewModelProvider(index)).title) return true;
+    return ref.read(activityScreenViewModelProvider.notifier).validateTitle(title);
   }
 }

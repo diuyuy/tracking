@@ -149,4 +149,11 @@ class ActivityScreenViewModel extends _$ActivityScreenViewModel {
   bool hasDecimal(double v){
     return v%1000!=0;
   }
+
+  bool validateTitle(String title) {
+    if(state.map((activity)=>activity.title).contains(title)){
+      return false;
+    }
+    return true;
+  }
 }

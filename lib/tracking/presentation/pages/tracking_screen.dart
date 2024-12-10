@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +25,7 @@ class TrackingScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final activity = ref.watch(trackingScreenViewModelProvider(index));
     final notifier = ref.read(activityScreenViewModelProvider.notifier);
+    final trackingNotifier = ref.read(trackingScreenViewModelProvider(index).notifier);
     return Scaffold(
       appBar: AppBar(
         scrolledUnderElevation: 0,
@@ -212,14 +210,14 @@ class TrackingScreen extends ConsumerWidget {
                   ValueContainer(
                       color: AppColors.BLUE.value,
                       svgPath: SvgPathData.down,
-                      value: activity.min,
+                      value: trackingNotifier.min,
                       unit: activity.unit,
                       subContent: TrackingScreenData.minValue,
                   ),
                   ValueContainer(
                       color: AppColors.GREEN.value,
                       svgPath: SvgPathData.up,
-                      value: activity.max,
+                      value: trackingNotifier.max,
                       unit: activity.unit,
                       subContent: TrackingScreenData.maxValue,
                   )

@@ -42,7 +42,7 @@ class ActivityScreen extends ConsumerWidget {
                   DateTime? sDate = await showDatePicker(
                     context: context,
                     initialDate: DateTime.parse(selectedDate),
-                    firstDate: DateTime(2010),
+                    firstDate: DateTime(2024),
                     lastDate: DateTime.parse(notifier.today),//DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.calendar,
                     currentDate: DateTime.now(),
@@ -53,7 +53,6 @@ class ActivityScreen extends ConsumerWidget {
                   if (sDate != null) {
                     String date = DateFormat('yyyy-MM-dd').format(sDate);
                     if (context.mounted) {
-                      //context.pop();
                       context.pushNamed(ConstRouterName.ACTIVITY_SCREEN,
                           extra: date);
                     }

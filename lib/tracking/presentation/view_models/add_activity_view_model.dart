@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mini_project_2_with_android_studio/tracking/presentation/view_models/activity_screen_view_model.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/widgets_for_add_activity/color_container.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/widgets_for_add_activity/my_divider.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -93,18 +94,6 @@ class AddActivityViewModel extends _$AddActivityViewModel {
     state = newState;
   }
 
-  // void addChart(Chart element) {
-  //   final newState = [...state];
-  //   newState[6] = element;
-  //   state = newState;
-  // }
-  //
-  // void selectChart(Chart chart){
-  //   final newState = [...state];
-  //   newState[6] = chart;
-  //   state = newState;
-  // }
-
   Widget errorPrint() {
     return Text(
       'Please fill in all the fields.',
@@ -113,38 +102,6 @@ class AddActivityViewModel extends _$AddActivityViewModel {
       ),
     );
   }
-
-  // void showIconModalBottomSheet(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     backgroundColor: AppColors.WHITE,
-  //     builder: (context) => SizedBox(
-  //       height: 350.h,
-  //       child: ListView(children: [
-  //         Gap(20),
-  //         ...[
-  //           for (int i = 0; i < SvgPathData.activitySvgList.length * 2; i++)
-  //             i % 2 == 0
-  //                 ? ListTile(
-  //                     title: SvgPicture.asset(
-  //                       SvgPathData.activitySvgList[i ~/ 2],
-  //                       width: 30.w,
-  //                       height: 30.w,
-  //                     ),
-  //                     onTap: () {
-  //                       addIcon(SvgPathData.activitySvgList[i ~/ 2]);
-  //                       Navigator.pop(context);
-  //                     },
-  //                   )
-  //                 : Padding(
-  //                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-  //                     child: const MyDivider(),
-  //                   ),
-  //         ],
-  //       ]),
-  //     ),
-  //   );
-  // }
 
   void showIconModalBottomSheet(BuildContext context,List<String> svgPathList) {
     showModalBottomSheet(
@@ -216,10 +173,13 @@ class AddActivityViewModel extends _$AddActivityViewModel {
     try{
       final a = double.parse(state[1] as String);
       final b = double.parse(state[2] as String);
-      if(a<=0||b<=0) checkValid = false;
+      if(a<0||b<=0) checkValid = false;
     }catch(e){
       checkValid = false;
     }
     return checkValid;
+  }
+  bool validateTitle(String title){
+    return ref.read(activityScreenViewModelProvider.notifier).validateTitle(title);
   }
 }

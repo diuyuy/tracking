@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/svg_container.dart';
 
@@ -19,7 +18,7 @@ class TrackingContainer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final activity = ref.watch(activityScreenViewModelProvider);
-    final notifier = ref.read(activityScreenViewModelProvider.notifier);
+    //final notifier = ref.read(activityScreenViewModelProvider.notifier);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       width: 300.w,

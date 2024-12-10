@@ -13,7 +13,8 @@ import '../widgets/widgets_for_add_activity/color_container.dart';
 import '../widgets/widgets_for_add_activity/widegets_for_add_activity_export.dart';
 
 class EditScreen extends ConsumerStatefulWidget {
-  const EditScreen({super.key,required this.index,required this.selectedDate});
+  const EditScreen(
+      {super.key, required this.index, required this.selectedDate});
 
   final int index;
   final String selectedDate;
@@ -23,7 +24,6 @@ class EditScreen extends ConsumerStatefulWidget {
 }
 
 class _EditScreenState extends ConsumerState<EditScreen> {
-
   final List<TextEditingController> _textController = [
     TextEditingController(),
     TextEditingController(),
@@ -33,6 +33,7 @@ class _EditScreenState extends ConsumerState<EditScreen> {
 
   bool checkValid = true;
   bool checkValueValid = true;
+  bool checkTitleValid = true;
 
   @override
   void dispose() {
@@ -44,9 +45,12 @@ class _EditScreenState extends ConsumerState<EditScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = ref.watch(editActivityViewModelProvider(widget.index,widget.selectedDate));
-    final notifier = ref.read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier);
-    for(int i=0;i<_textController.length;i++){
+    final viewModel = ref.watch(
+        editActivityViewModelProvider(widget.index, widget.selectedDate));
+    final notifier = ref.read(
+        editActivityViewModelProvider(widget.index, widget.selectedDate)
+            .notifier);
+    for (int i = 0; i < _textController.length; i++) {
       _textController[i].text = viewModel[i] as String;
     }
     return Scaffold(
@@ -64,22 +68,28 @@ class _EditScreenState extends ConsumerState<EditScreen> {
         actions: [
           TextButton(
               onPressed: () async {
-                final notifier =
-                ref.read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier);
+                final notifier = ref.read(editActivityViewModelProvider(
+                        widget.index, widget.selectedDate)
+                    .notifier);
                 for (int i = 0; i < _textController.length; i++) {
-                  notifier.addTextFieldInput(i, _textController[i].text);
+                  notifier.editTextFieldInput(i, _textController[i].text);
                 }
                 if (inputComplete() &&
-                    notifier.valueValid) {
-                    ref
-                      .read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier)
-                      .editActivity(widget.index,widget.selectedDate);
+                    notifier.valueValid &&
+                    notifier.validateTitle(_textController[0].text,widget.index)) {
+                  ref
+                      .read(editActivityViewModelProvider(
+                              widget.index, widget.selectedDate)
+                          .notifier)
+                      .editActivity(widget.index, widget.selectedDate);
 
-                    context.pop();
+                  context.pop();
                 } else {
                   setState(() {
                     checkValid = inputComplete();
                     checkValueValid = notifier.valueValid;
+                    checkTitleValid =
+                        notifier.validateTitle(_textController[0].text,widget.index);
                   });
                 }
               },
@@ -105,87 +115,60 @@ class _EditScreenState extends ConsumerState<EditScreen> {
               const MyDivider(),
               MenuAnchor(
                 style: MenuStyle(
-                  backgroundColor: WidgetStatePropertyAll(AppColors.SCAFFOLD_BACKGROUND_GREY)
-                ),
+                    backgroundColor: WidgetStatePropertyAll(
+                        AppColors.SCAFFOLD_BACKGROUND_GREY)),
                 alignmentOffset: Offset(1.sw, 0),
                 menuChildren: [
                   MenuItemButton(
-                    style: MenuItemButton.styleFrom(
-                      fixedSize: Size(60.w,40.w),
-                    ),
-                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.sportsSvgList),
+                    onPressed: () => notifier.showIconModalBottomSheet(
+                        context, SvgPathData.sportsSvgList),
                     child: RobotoText(content: 'Sports'),
                   ),
                   MenuItemButton(
-                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.foodsSvgList),
+                    onPressed: () => notifier.showIconModalBottomSheet(
+                        context, SvgPathData.foodsSvgList),
                     child: RobotoText(content: 'Foods'),
                   ),
                   MenuItemButton(
-                    onPressed: ()=> notifier.showIconModalBottomSheet(context,SvgPathData.othersSvgList),
+                    onPressed: () => notifier.showIconModalBottomSheet(
+                        context, SvgPathData.othersSvgList),
                     child: RobotoText(content: 'Others'),
                   ),
                 ],
-                builder: (BuildContext context,MenuController controller,Widget? child){
+                builder: (BuildContext context, MenuController controller,
+                    Widget? child) {
                   return ListTile(
-                    contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-                    dense: true,
-                    leading: MyText(content: AddActivityScreenData.property[4]),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SvgPicture.asset(
-                          viewModel[4] as String,
-                          width: 20.w,
-                          height: 20.w,
-                          colorFilter: ColorFilter.mode(
-                              Color(viewModel[5]),
-                              BlendMode.srcIn),
-                        ),
-                        Gap(5.w),
-                        Icon(
-                          Icons.keyboard_arrow_down,
-                          color: AppColors.DIVIDER_COLOR,
-                          size: 16.w,
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      if(controller.isOpen){
-                        controller.close();
-                      }else{
-                        controller.open();
-                      }
-                    }
-                  );
+                      contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
+                      dense: true,
+                      leading:
+                          MyText(content: AddActivityScreenData.property[4]),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            viewModel[4] as String,
+                            width: 20.w,
+                            height: 20.w,
+                            colorFilter: ColorFilter.mode(
+                                Color(viewModel[5]), BlendMode.srcIn),
+                          ),
+                          Gap(5.w),
+                          Icon(
+                            Icons.keyboard_arrow_down,
+                            color: AppColors.DIVIDER_COLOR,
+                            size: 16.w,
+                          )
+                        ],
+                      ),
+                      onTap: () {
+                        if (controller.isOpen) {
+                          controller.close();
+                        } else {
+                          controller.open();
+                        }
+                      });
                 },
               ),
-              // ListTile(
-              //   contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
-              //   dense: true,
-              //   leading: MyText(content: AddActivityScreenData.property[4]),
-              //   trailing: Row(
-              //     mainAxisSize: MainAxisSize.min,
-              //     children: [
-              //       SvgPicture.asset(
-              //         viewModel[4] as String,
-              //         width: 20.w,
-              //         height: 20.w,
-              //         colorFilter: ColorFilter.mode(
-              //              Color(viewModel[5]),
-              //             BlendMode.srcIn),
-              //       ),
-              //       Gap(5.w),
-              //       Icon(
-              //         Icons.keyboard_arrow_down,
-              //         color: AppColors.DIVIDER_COLOR,
-              //         size: 16.w,
-              //       )
-              //     ],
-              //   ),
-              //   onTap: () => ref
-              //       .read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier)
-              //       .showIconModalBottomSheet(context),
-              // ),
               const MyDivider(),
               ListTile(
                 contentPadding: EdgeInsets.symmetric(horizontal: 8.0),
@@ -204,19 +187,33 @@ class _EditScreenState extends ConsumerState<EditScreen> {
                   ],
                 ),
                 onTap: () => ref
-                    .read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier)
+                    .read(editActivityViewModelProvider(
+                            widget.index, widget.selectedDate)
+                        .notifier)
                     .showIconColorModalBottomSheet(context),
               ),
               const MyDivider(),
               Gap(140.h),
-              !checkValueValid && _textController[1].text.isNotEmpty&&_textController[2].text.isNotEmpty
+              !checkTitleValid
                   ? RobotoText(
-                content: 'Please input valid value',
-                color: Colors.red,
-              )
+                      content: 'This title already exists.',
+                      color: Colors.red,
+                    )
+                  : SizedBox(width: 10),
+              !checkValueValid &&
+                      _textController[1].text.isNotEmpty &&
+                      _textController[2].text.isNotEmpty
+                  ? RobotoText(
+                      content: 'Please input valid value',
+                      color: Colors.red,
+                    )
                   : SizedBox(width: 10),
               !checkValid
-                  ? ref.read(editActivityViewModelProvider(widget.index,widget.selectedDate).notifier).errorPrint()
+                  ? ref
+                      .read(editActivityViewModelProvider(
+                              widget.index, widget.selectedDate)
+                          .notifier)
+                      .errorPrint()
                   : SizedBox(width: 10),
               Gap(30.h),
             ],
@@ -253,7 +250,7 @@ class _EditScreenState extends ConsumerState<EditScreen> {
               textAlign: TextAlign.right,
               decoration: InputDecoration(
                 hintText:
-                'Input the ${AddActivityScreenData.input[i].toLowerCase()}',
+                    'Input the ${AddActivityScreenData.input[i].toLowerCase()}',
                 hintStyle: GoogleFonts.roboto(
                   color: Colors.grey,
                   fontSize: AddActivityScreenData.fontSize,
