@@ -8,8 +8,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../core/utils/utils_export.dart';
 import '../view_models/activity_screen_view_model.dart';
 import '../view_models/tracking_screen_view_model.dart';
-import '../widgets/roboto_text.dart';
-import '../widgets/svg_container.dart';
+
+import '../widgets/widgets_export.dart';
 import '../widgets/widgets_for_tracking_screen/tracking_widgets_export.dart';
 
 class TrackingScreen extends ConsumerWidget {

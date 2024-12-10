@@ -47,7 +47,6 @@ class ActivityScreen extends ConsumerWidget {
                     lastDate: DateTime.parse(notifier.today),//DateTime(2100),
                     initialEntryMode: DatePickerEntryMode.calendar,
                     currentDate: DateTime.now(),
-                    //DateTime.parse(selectedDate),
                     cancelText: "Cancel",
                     confirmText: "Ok",
                   );

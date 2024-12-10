@@ -177,16 +177,12 @@ class EditActivityViewModel extends _$EditActivityViewModel {
     );
   }
 
-  // bool get selectComplete{
-  //   return !state.sublist(4).contains(-1);
-  // }
-
   bool get valueValid {
     bool checkValid = true;
     try{
       final a = double.parse(state[1] as String);
       final b = double.parse(state[2] as String);
-      if(a<=0||b<=0) checkValid = false;
+      if(a<0||b<=0) checkValid = false;
     }catch(e){
       checkValid = false;
     }
