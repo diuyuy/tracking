@@ -4,15 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mini_project_2_with_android_studio/tracking/presentation/view_models/tracking_screen_view_model.dart';
-import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/chart_container.dart';
-import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/statistics_container.dart';
-import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/svg_container.dart';
-import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/value_container.dart';
 
 import '../../../core/utils/utils_export.dart';
 import '../view_models/activity_screen_view_model.dart';
+import '../view_models/tracking_screen_view_model.dart';
 import '../widgets/roboto_text.dart';
+import '../widgets/svg_container.dart';
+import '../widgets/widgets_for_tracking_screen/tracking_widgets_export.dart';
 
 class TrackingScreen extends ConsumerWidget {
   const TrackingScreen(

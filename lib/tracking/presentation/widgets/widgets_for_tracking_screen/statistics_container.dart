@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/utils/utils_export.dart';
-import 'svg_container.dart';
-import 'widgets_export.dart';
+import '../../../../core/utils/utils_export.dart';
+import '../svg_container.dart';
+import '../widgets_export.dart';
 
 class StatisticsContainer extends StatelessWidget {
   const StatisticsContainer({

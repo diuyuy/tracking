@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/widgets/roboto_text.dart';
 
-import '../../../core/utils/utils_export.dart';
-import 'svg_container.dart';
+import '../../../../core/utils/app_colors.dart';
+import '../svg_container.dart';
 
 class ValueContainer extends StatelessWidget {
   const ValueContainer({

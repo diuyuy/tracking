@@ -6,8 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mini_project_2_with_android_studio/tracking/presentation/view_models/tracking_screen_view_model.dart';
 
-import '../../../core/utils/utils_export.dart';
-import '../view_models/activity_screen_view_model.dart';
+import '../../../../core/utils/utils_export.dart';
+import '../../view_models/activity_screen_view_model.dart';
+
+
 
 class CustomLineChart extends ConsumerWidget {
   const CustomLineChart(
